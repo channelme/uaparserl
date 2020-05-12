@@ -1,0 +1,8 @@
+{application,uaparserl,
+             [{description,"Erlang UserAgent parser library"},
+              {vsn,"0.1.0"},
+              {registered,[]},
+              {applications,[kernel,stdlib]},
+              {licenses,["MIT"]},
+              {links,[{"GitHub","https://github.com/"}]},
+              {env,[]}]}.

@@ -1,0 +1,8 @@
+{"1.1.0",
+[{<<"recon">>,{pkg,<<"recon">>,<<"2.5.0">>},0},
+ {<<"yamerl">>,{pkg,<<"yamerl">>,<<"0.8.0">>},0}]}.
+[
+{pkg_hash,[
+ {<<"recon">>, <<"2F7FCBEC2C35034BADE2F9717F77059DC54EB4E929A3049CA7BA6775C0BD66CD">>},
+ {<<"yamerl">>, <<"8214CFE16BBABE5D1D6C14A14AEA11C784B9A21903DD6A7C74F8CE180ADAE5C7">>}]}
+].
