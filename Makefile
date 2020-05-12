@@ -22,16 +22,16 @@ endef
 all: help
 
 compile: $(REBAR)  ## compile erlang source code
-	@$(REBAR) compile
+	@$(REBAR) as developer compile
 
 shell: $(REBAR)  ## start an erlang shell from here
-	@$(REBAR) shell
+	@$(REBAR) as developer shell
 
 test: $(REBAR) compile ## run test suite
 	@$(REBAR) as developer eunit
 
 clean: $(REBAR)  ## clean project build artefacts
-	@$(REBAR) clean
+	@$(REBAR) as developer clean
 
 distclean:  ## clean all build artefacts
 	@rm -rf _build
