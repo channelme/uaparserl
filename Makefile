@@ -28,7 +28,7 @@ shell: $(REBAR)  ## start an erlang shell from here
 	@$(REBAR) shell
 
 test: $(REBAR) compile ## run test suite
-	@$(REBAR) eunit
+	@$(REBAR) as developer eunit
 
 clean: $(REBAR)  ## clean project build artefacts
 	@$(REBAR) clean

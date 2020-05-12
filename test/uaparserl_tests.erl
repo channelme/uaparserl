@@ -2,7 +2,7 @@
 
 -include_lib("eunit/include/eunit.hrl").
 
--define(TEST_TIMEOUT, 25.0).
+-define(TEST_TIMEOUT, 60.0).
 
 %% fixtures
 

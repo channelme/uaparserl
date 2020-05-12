@@ -1,7 +1,5 @@
 -module(uaparserl).
 
--include_lib("kernel/include/logger.hrl").
-
 -export([parse/1, reload/0, update/0]).
 
 -ifdef(TEST).

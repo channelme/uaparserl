@@ -1,5 +1,7 @@
 # uaparserl
 
+[![See build results on Travis CI][status]][travis]
+
 A simple user-agent parsing library based on [BrowserScope's UA database][1].
 
 ## Installation
@@ -42,3 +44,5 @@ ok
 
 
 [1]: https://github.com/ua-parser/uap-core
+[travis]: https://travis-ci.org/channelme/uaparserl
+[status]: https://api.travis-ci.org/channelme/uaparserl.svg?branch=master
