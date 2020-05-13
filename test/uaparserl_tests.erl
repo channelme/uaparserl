@@ -196,7 +196,7 @@ test_ua_case(Case) ->
             UAString = proplists:get_value(user_agent_string, Case),
             Keys = [family, major, minor, patch],
             Example = [{K, proplists:get_value(K, Case)} || K <- Keys],
-            Expected = replace_nulls(Example),
+            Expected = sanitize_values(Example),
             Parsed = uaparserl:parse(UAString),
             Result = proplists:get_value(useragent, Parsed),
             ?assertEqual(Expected, Result)
@@ -224,7 +224,7 @@ test_os_case(Case) ->
             UAString = proplists:get_value(user_agent_string, Case),
             Keys = [family, major, minor, patch, patch_minor],
             Example = [{K, proplists:get_value(K, Case)} || K <- Keys],
-            Expected = replace_nulls(Example),
+            Expected = sanitize_values(Example),
             Parsed = uaparserl:parse(UAString),
             Result = proplists:get_value(os, Parsed),
             ?assertEqual(Expected, Result)
@@ -252,7 +252,7 @@ test_device_case(Case) ->
             UAString = proplists:get_value(user_agent_string, Case),
             Keys = [family, brand, model],
             Example = [{K, proplists:get_value(K, Case)} || K <- Keys],
-            Expected = replace_nulls(Example),
+            Expected = sanitize_values(Example),
             Parsed = uaparserl:parse(UAString),
             Result = proplists:get_value(device, Parsed),
             ?assertEqual(Expected, Result)
@@ -265,10 +265,10 @@ assert_is_regex(Regex) ->
 
 %%  helpers
 
-replace_nulls([_ | _] = Items) ->
-    lists:map(fun replace_null/1, Items).
+sanitize_values([_ | _] = Items) ->
+    lists:map(fun sanitize_value/1, Items).
 
-replace_null({K, null}) ->
+sanitize_value({K, null}) ->
     {K, undefined};
-replace_null({K, V}) ->
+sanitize_value({K, V}) ->
     {K, V}.

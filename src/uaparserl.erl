@@ -17,6 +17,7 @@
          "tests/test_ua.yaml"]).
 -define(PATTERNS_FILE, "regexes.yaml").
 -define(PATTERNS_MODULE, uaparserl_patterns).
+-define(UNKNOWN, "Other").
 
 %% public functions
 
@@ -40,7 +41,7 @@ update() ->
 %% private functions
 
 find_match(Category, [], _UAString) ->
-    {Category, zip(category_keys(Category), ["Other"])};
+    {Category, zip(category_keys(Category), [?UNKNOWN])};
 find_match(Category, [Rule | T], UAString) ->
     Regex = proplists:get_value(compiled, Rule),
     case re:run(UAString, Regex, [global, {capture, all, list}]) of
@@ -241,10 +242,12 @@ download_resources() ->
 download_resource(Path) ->
     Target = ?RESOURCE_URL ++ Path,
     Outfile = filename:join(priv_dir(), filename:basename(Path)),
+    Tmpfile = Outfile ++ "-tmp",
     {ok, saved_to_file} = httpc:request(get,
                                         {Target, []},
                                         [],
-                                        [{stream, Outfile}]),
+                                        [{stream, Tmpfile}]),
+    ok = file:rename(Tmpfile, Outfile),
     ok.
 
 patterns() ->

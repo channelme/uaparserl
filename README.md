@@ -6,7 +6,26 @@ A simple user-agent parsing library based on [BrowserScope's UA database][1].
 
 ## Installation
 
-Add `uaparserl` to your dependencies.
+`uaparserl` is tested with OTP from version 20 onwards. To use it, add
+`uaparserl` to your dependencies:
+
+### rebar
+
+```erlang
+{deps,[
+  {uaparserl, {git, "https://github.com/channelme/uaparserl.git"}}
+]}.
+```
+
+### mix
+
+```elixir
+def project do
+  [
+    deps: [{:uaparserl, git: "https://github.com/channelme/uaparserl.git"}]
+  ]
+end
+```
 
 ### Enable HiPE
 
@@ -52,6 +71,14 @@ ok
           {brand,"Apple"},
           {model,"iOS-Device"}]}]
 ```
+
+## Development
+
+We welcome pull requests!
+
+For local development, OTP21 or greater is required. Call `make` within
+the project directory for a list of commands that can be used to aid
+your development process.
 
 ## Licence
 
