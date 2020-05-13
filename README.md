@@ -21,6 +21,17 @@ If you want to use a HiPE compiled version, add following code to your
 
 ## Usage
 
+### Important
+
+Please note that this library returns captures "as is"; it is the
+responsibility of the developer to ensure that results are properly
+escaped when used in potentially harmful scenarios.
+
+Also be aware that this library expects and returns strings. You may
+need to convert the return value to for correct use within your system.
+
+### Example
+
 ```erlang
 %% Obtain the resource files from BrowserScope's github repository
 > uaparserl:update().

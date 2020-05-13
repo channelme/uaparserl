@@ -103,9 +103,9 @@ format_value(Value)
          Value == "$7";
          Value == "$8";
          Value == "$9" ->
-    nil;
+    undefined;
 format_value([] = _Value) ->
-    nil;
+    undefined;
 format_value(Value) ->
     Value.
 
@@ -118,15 +118,23 @@ sanitize(String) ->
 %% utility functions
 
 build_lookup(Values) ->
-    [{format_index(I), nth(I, Values, "")} || I <- lists:seq(1, 9)].
+    build_lookup(lists:seq(1, 9), Values, []).
+
+build_lookup([Key | Keys] = _, [Val | Values] = _, Acc) ->
+    build_lookup(Keys, Values, [{format_index(Key), Val} | Acc]);
+build_lookup([Key | Keys] = _, [] = Values, Acc) ->
+    build_lookup(Keys, Values, [{format_index(Key), ""} | Acc]);
+build_lookup([] = _, [] = _, Acc) ->
+    lists:reverse(Acc).
 
 get_replacements(Category, Rule) ->
-    Replacements = [{Key, proplists:get_value(Key, Rule, Position)}
-                    || {Key, Position} = _ <- default_replacements(Category)],
-    NotNil = fun ({_, Value}) ->
-                     Value =/= nil
-             end,
-    lists:filtermap(NotNil, Replacements).
+    get_replacements(default_replacements(Category), Rule, []).
+
+get_replacements([{Key, Position} | Replacements] = _, Rule, Acc) ->
+    Value = proplists:get_value(Key, Rule, Position),
+    get_replacements(Replacements, Rule, [{Key, Value} | Acc]);
+get_replacements([] = _, _Rule, Acc) ->
+    lists:reverse(Acc).
 
 apply_replacements({Key, Value}, [{Placeholder, Replacement} | T]) ->
     Result = string:replace(Value, Placeholder, Replacement, all),
@@ -144,17 +152,9 @@ zip([HR | TR], [{_HLK, HL} | TL], Acc) ->
 zip([HR | TR], [HL | TL], Acc) ->
     zip(TR, TL, [{HR, HL} | Acc]);
 zip([HR | TR], [], Acc) ->
-    zip(TR, [], [{HR, nil} | Acc]);
+    zip(TR, [], [{HR, undefined} | Acc]);
 zip([], [], Acc) ->
     lists:reverse(Acc).
-
-nth(Index, List, Default) ->
-    try
-      lists:nth(Index, List)
-    catch
-      _:_ ->
-          Default
-    end.
 
 %% setup functions
 

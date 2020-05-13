@@ -111,7 +111,7 @@ private_parse_funs_test_() ->
                              {major, "10"},
                              {minor, "4"},
                              {patch, "2"},
-                             {patch_minor, nil}]},
+                             {patch_minor, undefined}]},
                            uaparserl:format_result(os,
                                                    ["10", "4", "2"],
                                                    [{os_replacement,
@@ -155,7 +155,7 @@ private_parse_funs_test_() ->
                               {major, "4"},
                               {minor, "2"},
                               {patch, "2"},
-                              {patch_minor, nil}]},
+                              {patch_minor, undefined}]},
                             {device,
                              [{family, "ZP998 Special"},
                               {brand, "Zopo"},
@@ -269,6 +269,6 @@ replace_nulls([_ | _] = Items) ->
     lists:map(fun replace_null/1, Items).
 
 replace_null({K, null}) ->
-    {K, nil};
+    {K, undefined};
 replace_null({K, V}) ->
     {K, V}.
