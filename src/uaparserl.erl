@@ -168,7 +168,7 @@ load_patterns() ->
                      Data;
                  {error, _Error} ->
                      throw({error,
-                            "resources missing, use update/0 to collect them"})
+                            "lookup resources missing, use uaparserl:update/0 to collect them"})
                end,
     YAMLData = yamerl_constr:string(FileData),
     PatternSets = extract_pattern_sets(YAMLData),
